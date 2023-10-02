@@ -1,48 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
-
-const cartElements = [
-  {
-    title: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-    quantity: 2,
-  },
-  {
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-  {
-    title: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-    quantity: 3,
-  },
-  {
-    title: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-    quantity: 1,
-  },
-];
+import CartContext from "../store/cart-context";
 
 const Cart = (props) => {
-  const cartItems = cartElements.map((item, index) => (
+  const cartCtx = useContext(CartContext);
+
+  const totalAmount = `\u20B9 ${cartCtx.totalAmount.toFixed(2)}`;
+
+  const hasItems = cartCtx.items.length > 0;
+
+  const cartItemRemoveHandle = (id) => {
+    cartCtx.removeItem(id);
+  };
+
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
+  const cartItems = cartCtx.items.map((item, index) => (
     <CartItem
       key={index}
       item={item}
-      onRemove={() => props.onRemove(index)}
-      onAdd={() => props.onAdd(index)}
+      onRemove={cartItemRemoveHandle.bind(null, item.id)}
+      onAdd={cartItemAddHandler.bind(null, item)}
     />
   ));
 
@@ -62,7 +43,8 @@ const Cart = (props) => {
         {cartItems}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHideCart}>Close</Button>
+        <section>{`Total Amount: ${totalAmount}`}</section>
+        {hasItems && <Button>Purchase</Button>}
       </Modal.Footer>
     </Modal>
   );

@@ -64,6 +64,7 @@ const CartProvide = (props) => {
   );
 
   const addItemToCart = (item) => {
+    console.log("item added");
     dispatchCartAction({ type: "ITEM_ADDED", item: item });
   };
 

@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
 
+import CartContext from "../store/cart-context";
+
 const Header = (props) => {
-  const numberOfProducts = 0;
+  const cartCtx = useContext(CartContext);
+
+  const numberOfCartItems = cartCtx.items.reduce((startValue, item) => {
+    return startValue + item.amount;
+  }, 0);
+
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
@@ -14,7 +21,7 @@ const Header = (props) => {
           <Nav.Link href="#about">About</Nav.Link>
         </Nav>
         <Button variant="outline-light" onClick={props.onShowCart}>
-          <FaShoppingCart /> Cart {numberOfProducts}
+          <FaShoppingCart /> Cart {numberOfCartItems}
         </Button>
       </Container>
     </Navbar>

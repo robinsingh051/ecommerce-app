@@ -5,29 +5,30 @@ import React, { useState } from "react";
 import Products from "./components/Products";
 import Header from "./components/Header";
 import Cart from "./components/Cart";
+import CartProvider from "./store/CartProvider";
 
 const productsArr = [
   {
     id: 1,
-    title: "Colors",
+    name: "Colors",
     price: 100,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
   },
   {
     id: 2,
-    title: "Black and white Colors",
+    name: "Black and white Colors",
     price: 50,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
   },
   {
     id: 3,
-    title: "Yellow and Black Colors",
+    name: "Yellow and Black Colors",
     price: 70,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
   },
   {
     id: 4,
-    title: "Blue Color",
+    name: "Blue Color",
     price: 100,
     imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
   },
@@ -45,13 +46,13 @@ function App() {
     setCartIsVisible(false);
   };
   return (
-    <>
+    <CartProvider>
       {cartIsVisible && (
         <Cart show={cartIsVisible} onHideCart={hideCartHandler} />
       )}
       <Header onShowCart={showCartHandle} />
       <Products products={productsArr} />
-    </>
+    </CartProvider>
   );
 }
 
