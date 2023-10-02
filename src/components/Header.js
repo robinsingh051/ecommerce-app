@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import { FaShoppingCart } from "react-icons/fa";
-
+import { NavLink } from "react-router-dom"; // Import NavLink
 import CartContext from "../store/cart-context";
 
 const Header = (props) => {
@@ -16,9 +15,15 @@ const Header = (props) => {
     <Navbar bg="dark" variant="dark">
       <Container>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#store">Store</Nav.Link>
-          <Nav.Link href="#about">About</Nav.Link>
+          <NavLink to="/home" className="nav-link">
+            Home
+          </NavLink>
+          <NavLink to="/store" className="nav-link">
+            Store
+          </NavLink>
+          <NavLink to="/about" className="nav-link">
+            About
+          </NavLink>
         </Nav>
         <Button variant="outline-light" onClick={props.onShowCart}>
           <FaShoppingCart /> Cart {numberOfCartItems}

@@ -4,7 +4,7 @@ import { Button, Col, Image, Row } from "react-bootstrap";
 const CartItem = (props) => {
   const price = `\u20B9 ${props.item.price.toFixed(2)}`;
   return (
-    <Row className="cart-item mt-2">
+    <Row className="cart-item mt-2 border-bottom">
       <Col>
         <Row>
           <Col>

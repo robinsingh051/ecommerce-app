@@ -19,7 +19,7 @@ const Product = (props) => {
   };
 
   return (
-    <Card className="m-3" style={{ width: "20rem" }}>
+    <Card className="m-3 shadow" style={{ width: "20rem" }}>
       <Card.Header>{props.product.name}</Card.Header>
       <Card.Img variant="top" src={props.product.imageUrl} />
       <Card.Body>

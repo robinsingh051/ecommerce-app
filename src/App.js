@@ -1,57 +1,23 @@
-import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from "react";
 
-import React, { useState } from "react";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Store from "./pages/Store";
 
-import Products from "./components/Products";
-import Header from "./components/Header";
-import Cart from "./components/Cart";
 import CartProvider from "./store/CartProvider";
 
-const productsArr = [
-  {
-    id: 1,
-    name: "Colors",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
-  },
-  {
-    id: 2,
-    name: "Black and white Colors",
-    price: 50,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
-  },
-  {
-    id: 3,
-    name: "Yellow and Black Colors",
-    price: 70,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
-  },
-  {
-    id: 4,
-    name: "Blue Color",
-    price: 100,
-    imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
-  },
-];
+const router = createBrowserRouter([
+  { path: "/", element: <Store /> },
+  { path: "/store", element: <Store /> },
+  { path: "/home", element: <Home /> },
+  { path: "/about", element: <About /> },
+]);
 
 function App() {
-  const [cartIsVisible, setCartIsVisible] = useState(false);
-
-  const showCartHandle = () => {
-    console.log("button pressed");
-    setCartIsVisible(true);
-  };
-
-  const hideCartHandler = () => {
-    setCartIsVisible(false);
-  };
   return (
     <CartProvider>
-      {cartIsVisible && (
-        <Cart show={cartIsVisible} onHideCart={hideCartHandler} />
-      )}
-      <Header onShowCart={showCartHandle} />
-      <Products products={productsArr} />
+      <RouterProvider router={router} />
     </CartProvider>
   );
 }
