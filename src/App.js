@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import Header from "./components/Header";
 import Cart from "./components/Cart";
@@ -10,6 +10,9 @@ import ContactUs from "./pages/ContactUs";
 import ProductDetails from "./pages/ProductDetails";
 
 import CartProvider from "./store/CartProvider";
+import AuthContext from "./store/auth-context";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 const productsArr = [
   {
@@ -39,6 +42,8 @@ const productsArr = [
 ];
 
 function App() {
+  const authCtx = useContext(AuthContext);
+
   const [cartIsVisible, setCartIsVisible] = useState(false);
 
   const showCartHandler = () => {
@@ -52,32 +57,38 @@ function App() {
 
   return (
     <CartProvider>
-      <BrowserRouter>
-        {cartIsVisible && (
-          <Cart show={cartIsVisible} onHideCart={hideCartHandler} />
-        )}
-        <Header onShowCart={showCartHandler} />
-        <Switch>
-          <Route path="/" exact>
-            <Redirect to="/store" />
-          </Route>
-          <Route path="/store" exact>
-            <Store products={productsArr} />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/contactUs">
-            <ContactUs />
-          </Route>
-          <Route path="/store/:productId">
-            <ProductDetails products={productsArr} />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      {cartIsVisible && (
+        <Cart show={cartIsVisible} onHideCart={hideCartHandler} />
+      )}
+      <Header onShowCart={showCartHandler} />
+      <Switch>
+        <Route path="/" exact>
+          {authCtx.isLoggedIn && <Redirect to="/store" />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
+        </Route>
+        <Route path="/store" exact>
+          {authCtx.isLoggedIn && <Store products={productsArr} />}
+          {!authCtx.isLoggedIn && <Redirect to="/" />}
+        </Route>
+        <Route path="/home">
+          <Home />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
+        <Route path="/contactUs">
+          <ContactUs />
+        </Route>
+        <Route path="/store/:productId">
+          <ProductDetails products={productsArr} />
+        </Route>
+      </Switch>
     </CartProvider>
   );
 }
