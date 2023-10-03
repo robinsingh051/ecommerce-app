@@ -16,6 +16,9 @@ const HeaderWithoutCart = (props) => {
           <NavLink to="/about" className="nav-link">
             About
           </NavLink>
+          <NavLink to="/contactUs" className="nav-link">
+            Contact Us
+          </NavLink>
         </Nav>
       </Container>
     </Navbar>
