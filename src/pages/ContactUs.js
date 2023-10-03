@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Card, Form, Button, Container } from "react-bootstrap";
-import HeaderWithoutCart from "../components/HeaderWithoutCart";
 
 const ContactUs = (props) => {
   const [dataSent, setDataSent] = useState(false);
@@ -32,7 +31,6 @@ const ContactUs = (props) => {
 
   return (
     <>
-      <HeaderWithoutCart />
       {dataSent && <h1>Thank you For Contacting Us</h1>}
       {!dataSent && (
         <Container className="d-flex justify-content-center align-items-center mt-5">

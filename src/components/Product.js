@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { Card, Button } from "react-bootstrap";
 import CartContext from "../store/cart-context";
@@ -8,7 +9,8 @@ const Product = (props) => {
 
   const price = `\u20B9 ${props.product.price.toFixed(2)}`;
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (event) => {
+    event.preventDefault();
     cartCtx.addItem({
       id: props.product.id,
       name: props.product.name,
@@ -19,19 +21,21 @@ const Product = (props) => {
   };
 
   return (
-    <Card className="m-3 shadow" style={{ width: "20rem" }}>
-      <Card.Header>{props.product.name}</Card.Header>
-      <Card.Img variant="top" src={props.product.imageUrl} />
-      <Card.Body>
-        <Card.Title>{props.product.name}</Card.Title>
-        <div className="d-flex justify-content-between align-items-center">
-          <Card.Text>Price: {price}</Card.Text>
-          <Button variant="primary" onClick={addToCartHandler}>
-            Add to Cart
-          </Button>
-        </div>
-      </Card.Body>
-    </Card>
+    <Link to={`/store/${props.product.id}`} style={{ textDecoration: "none" }}>
+      <Card className="m-3 shadow" style={{ width: "20rem" }}>
+        <Card.Header>{props.product.name}</Card.Header>
+        <Card.Img variant="top" src={props.product.imageUrl} />
+        <Card.Body>
+          <Card.Title>{props.product.name}</Card.Title>
+          <div className="d-flex justify-content-between align-items-center">
+            <Card.Text>Price: {price}</Card.Text>
+            <Button variant="primary" onClick={addToCartHandler}>
+              Add to Cart
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 

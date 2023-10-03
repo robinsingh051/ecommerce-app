@@ -1,5 +1,4 @@
 import React from "react";
-import HeaderWithoutCart from "../components/HeaderWithoutCart";
 import { Container, Row, Col } from "react-bootstrap";
 
 const About = (props) => {
@@ -22,7 +21,6 @@ const About = (props) => {
 
   return (
     <>
-      <HeaderWithoutCart />
       <Container style={containerStyle}>
         <Row>
           <Col>

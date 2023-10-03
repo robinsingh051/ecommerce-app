@@ -1,10 +1,8 @@
 import React from "react";
-import HeaderWithoutCart from "../components/HeaderWithoutCart";
 
 const Home = (props) => {
   return (
     <>
-      <HeaderWithoutCart />
       <div className="container mt-4">
         <h1>Welcome to Our Online Store</h1>
         <p>
